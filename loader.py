@@ -1,7 +1,10 @@
 import torch
-from torch import nn
 import torchvision
 import torchvision.transforms as transforms
+
+
+# these loaders are copied from
+# https://github.com/kuangliu/pytorch-cifar/blob/master/main.py#L30-L50
 
 
 transform_train = transforms.Compose([
