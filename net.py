@@ -1,3 +1,5 @@
+from itertools import chain
+
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import Conv2d
@@ -75,3 +77,13 @@ class ResNet20(nn.Module):
         x = F.avg_pool2d(x, 8)
         x = x.view(-1, 64)
         return self.output(x)
+
+    def get_all_convolutional_layers(self):
+        return list(chain(
+            (self.stage_0_transformation_layer,),
+            *[(layer_pair.first_layer, layer_pair.second_layer) for layer_pair in chain(
+                self.stage_0,
+                self.stage_1,
+                self.stage_2
+            )]
+        ))
